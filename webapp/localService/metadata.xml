@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZFI_GW_SEND_BILLING_SMS_SRV" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="ZFI_CDS_ABLE_TO_SEND_SMSType" sap:label="Faturas abertas vencidas aptas eo envio de SMS de cobrança" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Company"/>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="FiscalYear"/>
+                    <PropertyRef Name="Document"/>
+                    <PropertyRef Name="DocumentItem"/>
+                    <PropertyRef Name="OperationClass"/>
+                    <PropertyRef Name="SpecialGLIndicator"/>
+                    <PropertyRef Name="NumberOfClearingDocument"/>
+                    <PropertyRef Name="AssignmentNumber"/>
+                    <PropertyRef Name="CustomerGroups"/>
+                </Key>
+                <Property Name="Company" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Empresa" sap:value-list="standard"/>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Cliente" sap:quickinfo="Nº cliente" sap:value-list="standard"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Exercício"/>
+                <Property Name="Document" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="N° Documento" sap:quickinfo="Nº documento de um documento contábil"/>
+                <Property Name="DocumentItem" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Item Documento" sap:quickinfo="Nº linha de lançamento no documento contábil"/>
+                <Property Name="OperationClass" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:label="Classe operação RzE" sap:quickinfo="Classe de operação de Razão Especial"/>
+                <Property Name="SpecialGLIndicator" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:label="Cód.Razão Especial" sap:quickinfo="Código de Razão Especial"/>
+                <Property Name="NumberOfClearingDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Doc.compensação" sap:quickinfo="Nº documento de compensação"/>
+                <Property Name="AssignmentNumber" Type="Edm.String" Nullable="false" MaxLength="18" sap:label="Atribuição" sap:quickinfo="Nº atribuição"/>
+                <Property Name="CustomerGroups" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Grupo de Clientes" sap:quickinfo="Grupo de clientes"/>
+                <Property Name="DocumentType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tipo Documento" sap:quickinfo="Tipo de documento"/>
+                <Property Name="DocumentTypeDesciption" Type="Edm.String" MaxLength="20" sap:label="Desc. Tipo Documento" sap:quickinfo="Denominação do tipo de documento"/>
+                <Property Name="NetDueDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data Vencimento" sap:quickinfo="Vencimento líquido"/>
+                <Property Name="Amount" Type="Edm.Decimal" Precision="16" Scale="2" sap:label="Montante ( ME )"/>
+                <Property Name="TermsOfPayment" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Cond. Pagamento" sap:quickinfo="Chave de condições de pagamento"/>
+                <Property Name="StatusText" Type="Edm.String" MaxLength="8" sap:label="Status Parcela"/>
+                <Property Name="StatusCritically" Type="Edm.String" MaxLength="1" sap:label="Status Critico"/>
+                <Property Name="PostingDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data Criação" sap:quickinfo="Data de lançamento no documento"/>
+                <Property Name="DocumentDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data Documento" sap:quickinfo="Data no documento"/>
+                <Property Name="CurrencyKey" Type="Edm.String" MaxLength="5" sap:label="Moeda" sap:quickinfo="Código da moeda" sap:semantics="currency-code"/>
+                <Property Name="DateToSendNextSMS" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data Próxima Cobrança"/>
+                <Property Name="DayDocumentWasEntered" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data de entrada" sap:quickinfo="Data da entrada do documento contábil"/>
+                <Property Name="ReferenceDocumentNumber" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Referência" sap:quickinfo="Nº documento de referência"/>
+                <Property Name="FiscalPeriod" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Período contábil" sap:quickinfo="Mês do exercício"/>
+                <Property Name="PostingKey" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Chave de lançamento"/>
+                <Property Name="TargetSpecialGLIndicator" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Cd.RzE destino" sap:quickinfo="Código de Razão Especial de destino"/>
+                <Property Name="DebitCreditIndicator" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Cód.débito/crédito" sap:quickinfo="Código débito/crédito"/>
+                <Property Name="BusinessArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Divisão"/>
+                <Property Name="TaxReportingCountryRegion" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/reg.imp." sap:quickinfo="País/região da declaração fiscal"/>
+                <Property Name="TaxOnSalesPurchasesCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código de imposto" sap:quickinfo="Código do IVA"/>
+                <Property Name="ValidFromDateOfTheTaxRate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Início valid.tx.imp." sap:quickinfo="Data de início da validade da taxa de imposto"/>
+                <Property Name="AmountInDocumentCurrency" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="ItemText" Type="Edm.String" MaxLength="50" sap:label="Texto" sap:quickinfo="Texto do item"/>
+                <Property Name="GLAccountNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Conta do Razão" sap:quickinfo="Nº conta do Razão"/>
+                <Property Name="GeneralLedgerAccount" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Conta do Razão" sap:quickinfo="Conta do Razão da contabilidade geral"/>
+                <Property Name="FinancialBudgetItem" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Plano financeiro" sap:quickinfo="Item do plano financeiro"/>
+                <Property Name="BaselineDateDueDateCalculation" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Dt.base prazo pgto." sap:quickinfo="Data base para cálculo do vencimento"/>
+                <Property Name="DocumentStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Status do documento"/>
+                <Property Name="CreditControlArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Área controle créd." sap:quickinfo="Área de controle de créditos"/>
+                <Property Name="AmountFunctionalCurrency" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="TaxAmountInLocalCurrency" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="TaxAmountInDocumentCurrency" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="TaxAmountInReportingCurrency" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="ValuationDifference" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="ValuationDiffSecondLocalCurr" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountEligibleCashDiscLocCurr" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="CashDiscountAmountLocCurr" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="CashDiscountAmountDocCurr" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountTaxDistribution" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountForeignCurrForTaxBreak" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountTaxDistribution2" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountForeignCurrForTaxBreak2" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountTaxDistribution3" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountForeignCurrForTaxBreak3" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmountSecondLocalGlobalCurr" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="AmounFreelyDefCurrency" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="DataFilterValueForDataAging" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data Aging" sap:quickinfo="Data Filter Value for Data Aging"/>
+                <Property Name="rfccur" Type="Edm.String" MaxLength="5" sap:label="Moeda funcional" sap:semantics="currency-code"/>
+                <Property Name="projn" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="sem utilização" sap:quickinfo="Ultrapassado: nº projeto : NÃO utilizar mais!! -&gt; PS_POSNR"/>
+                <Property Name="aufnr" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Ordem" sap:quickinfo="Nº ordem"/>
+                <Property Name="anln1" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Imobilizado" sap:quickinfo="Nº principal do imobilizado"/>
+                <Property Name="anln2" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Subnº" sap:quickinfo="Subnº do imobilizado"/>
+                <Property Name="filkd" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Conta da filial" sap:quickinfo="Nº conta da filial"/>
+                <Property Name="zlsch" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="FrmPgto" sap:quickinfo="Forma de pagamento"/>
+                <Property Name="zlspr" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Bloqueio pgto." sap:quickinfo="Chave para o bloqueio de pagamento"/>
+                <Property Name="zbfix" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Fixado" sap:quickinfo="Condição de pagamento fixada"/>
+                <Property Name="hbkid" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Banco da empresa" sap:quickinfo="Chave breve de um banco da empresa"/>
+                <Property Name="bvtyp" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tipo banco parceiro" sap:quickinfo="Tipo de banco do parceiro"/>
+                <Property Name="rebzg" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Referência à fatura" sap:quickinfo="Nº documento da fatura à qual pertence a operação"/>
+                <Property Name="rebzj" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Exercício" sap:quickinfo="Exercício da fatura relacionada (em caso de nota crédito)"/>
+                <Property Name="rebzz" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Item" sap:quickinfo="Item de lançamento na fatura relacionada"/>
+                <Property Name="samnr" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="Fatura coletiva" sap:quickinfo="Nº lista de faturas"/>
+                <Property Name="anfbn" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Solicitação de L/C" sap:quickinfo="Nº documento da solicitação de letra de câmbio"/>
+                <Property Name="anfbj" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Exercício" sap:quickinfo="Exercício do documento de solicitação de letra de câmbio"/>
+                <Property Name="anfbu" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Empresa" sap:quickinfo="Empresa, na qual foi registrada a solicitação de L/C"/>
+                <Property Name="anfae" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Reenvio até" sap:quickinfo="Vencimento da solicitação de letra de câmbio"/>
+                <Property Name="mansp" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Bloq.advert." sap:quickinfo="Bloqueio de advertências"/>
+                <Property Name="mschl" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Chave de advertência"/>
+                <Property Name="madat" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Última advert." sap:quickinfo="Data da última advertência"/>
+                <Property Name="manst" Type="Edm.String" MaxLength="1" sap:display-format="NonNegative" sap:label="Nível de advertência"/>
+                <Property Name="maber" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Área de advertência"/>
+                <Property Name="xnetb" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Tip.doc.líquido" sap:quickinfo="Código: documento registrado com valor líquido ?"/>
+                <Property Name="xanet" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Cód.: adiantamento no proc.contabilização líquida?" sap:heading=""/>
+                <Property Name="xcpdd" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="C.indiv." sap:quickinfo="Código: endereço e dados do banco fixados individualmente"/>
+                <Property Name="xinve" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Código investimento" sap:quickinfo="Código: referência a bens de investimento ?"/>
+                <Property Name="xzahl" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Operação pagamento" sap:quickinfo="Código: trata-se de uma operação de pagamento ?"/>
+                <Property Name="mwsk1" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código de imposto" sap:quickinfo="Código IVA para repartição"/>
+                <Property Name="tax_country1" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/reg.div.imposto" sap:quickinfo="País ou região do imposto para divisão do imposto"/>
+                <Property Name="hist_tax_factor1" Type="Edm.Decimal" Precision="34" Scale="6" sap:label="Fator hist.p/ValImp." sap:quickinfo="Fator histório para cálculo do valor do imposto"/>
+                <Property Name="mwsk2" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código de imposto" sap:quickinfo="Código IVA para repartição"/>
+                <Property Name="tax_country2" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/reg.div.imposto" sap:quickinfo="País ou região do imposto para divisão do imposto"/>
+                <Property Name="hist_tax_factor2" Type="Edm.Decimal" Precision="34" Scale="6" sap:label="Fator hist.p/ValImp." sap:quickinfo="Fator histório para cálculo do valor do imposto"/>
+                <Property Name="mwsk3" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código de imposto" sap:quickinfo="Código IVA para repartição"/>
+                <Property Name="txdat_from3" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Início valid.tx.imp." sap:quickinfo="Data início valid.taxa imposto p/divisão imp.(backpack imp.)"/>
+                <Property Name="tax_country3" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/reg.div.imposto" sap:quickinfo="País ou região do imposto para divisão do imposto"/>
+                <Property Name="hist_tax_factor3" Type="Edm.Decimal" Precision="34" Scale="6" sap:label="Fator hist.p/ValImp." sap:quickinfo="Fator histório para cálculo do valor do imposto"/>
+                <Property Name="hist_tax_factor" Type="Edm.Decimal" Precision="34" Scale="6" sap:label="Fator hist.p/ValImp." sap:quickinfo="Fator histório para cálculo do valor do imposto"/>
+                <Property Name="vbund" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Nº soc.parceira" sap:quickinfo="Nº sociedade parceira"/>
+                <Property Name="vbeln" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Doc.faturamento" sap:quickinfo="Documento de faturamento"/>
+                <Property Name="rebzt" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Tp.doc.subsequente"/>
+                <Property Name="infae" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="VencimtoInvert." sap:quickinfo="Data invertida do vendimento líquido"/>
+                <Property Name="stceg" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Nº ID fiscal de IVA" sap:quickinfo="Nº de identificação fiscal de IVA"/>
+                <Property Name="egbld" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/região destino" sap:quickinfo="País/região de destino para fornecimento da mercadoria"/>
+                <Property Name="eglld" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/região forn." sap:quickinfo="País/região fornecedor da mercadoria"/>
+                <Property Name="rstgr" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Motivo de diferença" sap:quickinfo="Motivo diferença em pagamentos"/>
+                <Property Name="xnoza" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Código: conta não é paga" sap:heading=""/>
+                <Property Name="vertt" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Tipo de contrato"/>
+                <Property Name="vertn" Type="Edm.String" MaxLength="13" sap:display-format="UpperCase" sap:label="Nº do contrato"/>
+                <Property Name="vbewa" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tipo de movimento" sap:quickinfo="Tp.movimento"/>
+                <Property Name="wverw" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Utilização de L/C" sap:quickinfo="Tipo de utilização de letra de câmbio"/>
+                <Property Name="projk" Type="Edm.String" MaxLength="24" sap:display-format="NonNegative" sap:label="Elemento PEP" sap:quickinfo="Elemento do plano da estrutura do projeto (elemento PEP)"/>
+                <Property Name="fipos" Type="Edm.String" MaxLength="24" sap:display-format="UpperCase" sap:label="Item financeiro"/>
+                <Property Name="nplnr" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Diagrama de rede" sap:quickinfo="Nº diagrama de rede para classificação contábil"/>
+                <Property Name="aufpl" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="Nº roteiro operações" sap:quickinfo="Nº de roteiro de operações na ordem"/>
+                <Property Name="aplzl" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="Contador" sap:quickinfo="Contador geral para ordem"/>
+                <Property Name="xegdr" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Negóc.triangular-UE" sap:quickinfo="Código: negócio triangular dentro da União Europeia"/>
+                <Property Name="dmb21" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="dmb22" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="dmb23" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="dmb31" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="dmb32" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="dmb33" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="bdif3" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="xragl" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Anular compensação" sap:quickinfo="Código: anular compensação"/>
+                <Property Name="uzawe" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Supl.frm.pgto" sap:quickinfo="Suplemento à forma de pagamento"/>
+                <Property Name="xstov" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Marcado p/estorno" sap:quickinfo="Código: documento marcado para estorno"/>
+                <Property Name="mwst2" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="mwst3" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="sknt2" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="sknt3" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="xref1" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Chave referência 1" sap:quickinfo="Chave de referência do parceiro de negócios"/>
+                <Property Name="xref2" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Chave referência 2" sap:quickinfo="Chave de referência do parceiro de negócios"/>
+                <Property Name="xarch" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Arquivado" sap:quickinfo="Código: documento já arquivado ?"/>
+                <Property Name="pswsl" Type="Edm.String" MaxLength="5" sap:label="Moeda Razão" sap:quickinfo="Moeda de atualização p/movimentação no período do Razão" sap:semantics="currency-code"/>
+                <Property Name="pswbt" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="lzbkz" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Código Banco Central" sap:quickinfo="Código do Banco Central"/>
+                <Property Name="landl" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="País/reg.forn." sap:quickinfo="País/região fornecedor"/>
+                <Property Name="imkey" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Chave bens imóveis" sap:quickinfo="Chave interna para objeto de bens imóveis"/>
+                <Property Name="vbel2" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Documento de vendas"/>
+                <Property Name="vpos2" Type="Edm.String" MaxLength="6" sap:display-format="NonNegative" sap:label="Nº" sap:quickinfo="Campo numérico de comprimento 6"/>
+                <Property Name="posn2" Type="Edm.String" MaxLength="6" sap:display-format="NonNegative" sap:label="Item" sap:quickinfo="Item do documento de vendas"/>
+                <Property Name="eten2" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Nº div.remessa" sap:quickinfo="Nº da divisão de remessa"/>
+                <Property Name="fistl" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Centro financeiro"/>
+                <Property Name="geber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Fundos"/>
+                <Property Name="dabrz" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Data de referência" sap:quickinfo="Data de referência para liquidação"/>
+                <Property Name="xnegp" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Lançamento negativo" sap:quickinfo="Código: lançamento negativo"/>
+                <Property Name="kostl" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Centro custo" sap:quickinfo="Centro de custo"/>
+                <Property Name="rfzei" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Item cartão pagamto." sap:quickinfo="Item de cartão de pagamento"/>
+                <Property Name="empfb" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Receb.pagto." sap:quickinfo="Recebedor de pagamento/pagador"/>
+                <Property Name="prctr" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Centro de lucro"/>
+                <Property Name="xref3" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Chave referência 3" sap:quickinfo="Chave de referência para item de doc."/>
+                <Property Name="qsskz" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código IRF" sap:quickinfo="Código de imposto retido na fonte"/>
+                <Property Name="zinkz" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Bloqueio de juros" sap:quickinfo="Exclusão do cálculo de juros"/>
+                <Property Name="dtws1" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Instrução 1"/>
+                <Property Name="dtws2" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Instrução 2"/>
+                <Property Name="dtws3" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Instrução 3"/>
+                <Property Name="dtws4" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Instrução 4"/>
+                <Property Name="xpypr" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Pagamento a caminho" sap:quickinfo="Código: partida bloqueada pelo programa de pagamento"/>
+                <Property Name="kidno" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Ref.pagamento" sap:quickinfo="Referência de pagamento"/>
+                <Property Name="absbt" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="ccbtc" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Processo liquidação" sap:quickinfo="Cartões de pagamento: processo de liquidação"/>
+                <Property Name="pycur" Type="Edm.String" MaxLength="5" sap:label="Moeda pagto." sap:quickinfo="Moeda para o pagamento automático" sap:semantics="currency-code"/>
+                <Property Name="pyamt" Type="Edm.Decimal" Precision="24" Scale="3" sap:unit="pycur" sap:label="Mont.moeda pgt." sap:quickinfo="Montante em moeda de pagamento"/>
+                <Property Name="bupla" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Loc.negócios" sap:quickinfo="Local de negócios"/>
+                <Property Name="secco" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="IRF - seção"/>
+                <Property Name="cession_kz" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código de cessão"/>
+                <Property Name="ppdiff" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="ppdif2" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="ppdif3" Type="Edm.Decimal" Precision="16" Scale="2"/>
+                <Property Name="kblnr" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Fundos destinados" sap:quickinfo="Nº documento fundos destinados"/>
+                <Property Name="kblpos" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Item do documento" sap:quickinfo="Item doc.fundos destinados"/>
+                <Property Name="grant_nbr" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Subsídio público"/>
+                <Property Name="gmvkz" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Execução" sap:quickinfo="Partida em execução"/>
+                <Property Name="srtype" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Cta.receb.adic." sap:quickinfo="Tipo da conta a receber adicional"/>
+                <Property Name="lotkz" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Nº de ordem" sap:quickinfo="Nº de agrupamento para ordens"/>
+                <Property Name="fkber" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Área funcional"/>
+                <Property Name="intreno" Type="Edm.String" MaxLength="13" sap:display-format="UpperCase" sap:label="ChaveBensImóveis RE" sap:quickinfo="Imóveis internos codificação dos dados mestre"/>
+                <Property Name="pprct" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Cen.lucro parceiros" sap:quickinfo="Centro de lucro de parceiros"/>
+                <Property Name="buzid" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="ID linha lçto." sap:quickinfo="Identificação da linha de lançamento"/>
+                <Property Name="auggj" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="ExercícioCompensação" sap:quickinfo="Exercício fiscal do doc.de compensação"/>
+                <Property Name="hktid" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="ID conta" sap:quickinfo="Chave breve das coordenadas de uma conta"/>
+                <Property Name="budget_pd" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Período de orçamento"/>
+                <Property Name="bdgt_account" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Conta de orçamento"/>
+                <Property Name="re_account" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="CtaDsp/Rnd RBP" sap:quickinfo="Razão baseado em pagamento: conta despesas ou rendimentos"/>
+                <Property Name="pays_prov" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="FSP" sap:quickinfo="Fornecedor de serviços de pagamento"/>
+                <Property Name="pays_tran" Type="Edm.String" MaxLength="35" sap:label="RefPgtoFornServPgto." sap:quickinfo="Referência do pagamento do fornecedor serviços de pagamento"/>
+                <Property Name="mndid" Type="Edm.String" MaxLength="35" sap:display-format="UpperCase" sap:label="Referência mandato" sap:quickinfo="Referência única ao mandato por recebedor do pagamento"/>
+                <Property Name="payt_rsn" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Motivo do pagamento"/>
+                <Property Name="kontt" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Ctg.ClassCont." sap:quickinfo="Categoria de classificação contábil"/>
+                <Property Name="kontl" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="ClassCont." sap:quickinfo="Barra de classific.contábil p/clas.cont.específicas do setor"/>
+                <Property Name="uebgdat" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Dt.proc.jud.cobrança" sap:quickinfo="Data transferência de uma partida ao proc.judicial cobrança"/>
+                <Property Name="vname" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Joint venture"/>
+                <Property Name="egrup" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Grupo participação" sap:quickinfo="Grupo de participação"/>
+                <Property Name="btype" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Código faturamento" sap:quickinfo="Código de faturamento"/>
+                <Property Name="propmano" Type="Edm.String" MaxLength="13" sap:display-format="UpperCase" sap:label="Mandato" sap:quickinfo="Administração de bens imóveis por terceiros"/>
+                <Property Name="gkont" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Conta lnçto.contrap." sap:quickinfo="Nº conta de contrapartida"/>
+                <Property Name="gkart" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Tip.cta.contrap" sap:quickinfo="Tipo da conta da contrapartida"/>
+                <Property Name="ghkon" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="CtaContrapart.Razão" sap:quickinfo="Conta Razão da conta de contrapartida na contabilidade geral"/>
+                <Property Name="awtyp" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Operação ref." sap:quickinfo="Operação de referência"/>
+                <Property Name="logsystem_sender" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Sist.lóg.emis." sap:quickinfo="Sistema lógico do emissor"/>
+                <Property Name="bukrs_sender" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Empr.sist.emis." sap:quickinfo="Empresa no sistema emissor"/>
+                <Property Name="belnr_sender" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Nº doc.emissor" sap:quickinfo="Número de um documento contábil no sistema emissor"/>
+                <Property Name="gjahr_sender" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Exrc.fisc.emis." sap:quickinfo="Exercício fiscal de um documento contábil no sistema emissor"/>
+                <Property Name="buzei_sender" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Item sistema emissor" sap:quickinfo="Número da linha no documento contábil do sistema emissor"/>
+            </EntityType>
+            <EntityType Name="ZFI__CDS_CLIENTType" sap:label="Número do cliente" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="kunnr"/>
+                </Key>
+                <Property Name="kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="kunnr_Text" sap:label="Número do cliente" sap:quickinfo="Nº cliente"/>
+                <Property Name="kunnr_Text" Type="Edm.String" MaxLength="35" sap:label="Descrição" sap:quickinfo="Nome 1" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ZFI__CDS_COMPANYType" sap:label="Número da empresa" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="bukrs"/>
+                </Key>
+                <Property Name="bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="bukrs_Text" sap:label="Número da Empresa" sap:quickinfo="Empresa"/>
+                <Property Name="bukrs_Text" Type="Edm.String" MaxLength="25" sap:label="Descrição" sap:quickinfo="Denominação de empresa ou sociedade" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityContainer Name="ZFI_GW_SEND_BILLING_SMS_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZFI_CDS_ABLE_TO_SEND_SMS" EntityType="ZFI_GW_SEND_BILLING_SMS_SRV.ZFI_CDS_ABLE_TO_SEND_SMSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZFI__CDS_CLIENT" EntityType="ZFI_GW_SEND_BILLING_SMS_SRV.ZFI__CDS_CLIENTType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZFI__CDS_COMPANY" EntityType="ZFI_GW_SEND_BILLING_SMS_SRV.ZFI__CDS_COMPANYType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+            </EntityContainer>
+            <Annotations Target="ZFI_GW_SEND_BILLING_SMS_SRV.ZFI_CDS_ABLE_TO_SEND_SMSType/Company" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Número da empresa"/>
+                        <PropertyValue Property="CollectionPath" String="ZFI__CDS_COMPANY"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Company"/>
+                                    <PropertyValue Property="ValueListProperty" String="bukrs"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="bukrs_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZFI_GW_SEND_BILLING_SMS_SRV.ZFI_CDS_ABLE_TO_SEND_SMSType/Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Número do cliente"/>
+                        <PropertyValue Property="CollectionPath" String="ZFI__CDS_CLIENT"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Customer"/>
+                                    <PropertyValue Property="ValueListProperty" String="kunnr"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="kunnr_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZFI_GW_SEND_BILLING_SMS_SRV.ZFI_GW_SEND_BILLING_SMS_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <atom:link rel="self" href="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/sap/ZFI_GW_SEND_BILLING_SMS_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://vhunmds4ci.sap.unimedpoa.com.br:44300/sap/opu/odata/sap/ZFI_GW_SEND_BILLING_SMS_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

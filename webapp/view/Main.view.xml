@@ -1,0 +1,192 @@
+<mvc:View xmlns="sap.m" 
+         controllerName="com.unimed.prestativ.zfisendbillingsms.controller.Main" 
+         xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+         xmlns:smartTable="sap.ui.comp.smarttable" 
+         xmlns:mvc="sap.ui.core.mvc" 
+         xmlns:core="sap.ui.core" 
+         displayBlock="true" 
+         height="100%">
+
+    <NavContainer autoFocus="true" 
+                 defaultTransitionName="slide" height="100%" visible="true" width="100%">
+        <pages>
+            <Page id="page" 
+                  title="{i18n>title}" 
+                  titleAlignment="Center" >
+                <content>
+                    <VBox fitContainer="true" >     
+                        <smartFilterBar:SmartFilterBar id="smartFilterBar" 
+                                                       entitySet="ZFI_CDS_ABLE_TO_SEND_SMS" 
+                                                       enableBasicSearch="false" 
+                                                       liveMode="false"
+                                                       search="onBegin" >
+
+                            <smartFilterBar:controlConfiguration>
+                                <smartFilterBar:ControlConfiguration key="Customer" visibleInAdvancedArea="true" width="300rem" preventInitialDataFetchInValueHelpDialog="false" />
+                                <smartFilterBar:ControlConfiguration key="Company" visibleInAdvancedArea="true" preventInitialDataFetchInValueHelpDialog="false" />
+                                <smartFilterBar:ControlConfiguration key="FiscalYear" visibleInAdvancedArea="true" preventInitialDataFetchInValueHelpDialog="false" />
+                                <smartFilterBar:ControlConfiguration key="Document" visibleInAdvancedArea="true" preventInitialDataFetchInValueHelpDialog="false" />
+                                <smartFilterBar:ControlConfiguration key="Amount" visibleInAdvancedArea="true" preventInitialDataFetchInValueHelpDialog="false" />
+                            </smartFilterBar:controlConfiguration>
+
+                            <smartFilterBar:layoutData>
+                                <FlexItemData shrinkFactor="0" />
+                            </smartFilterBar:layoutData>
+                        </smartFilterBar:SmartFilterBar>
+
+                        <smartTable:SmartTable
+                            id="smartTable"
+                            persistencyKey="SmartTable"
+                            entitySet="ZFI_CDS_ABLE_TO_SEND_SMS"
+                            smartFilterId="smartFilterBar"
+                            tableType="ResponsiveTable"
+                            useExportToExcel="true"
+                            useTablePersonalisation="true"
+                            useVariantManagement="true"
+                            fitContainer="true"
+                            header="Partidas em aberto"
+                            showRowCount="true"
+                            class="sapUiResponsiveContentPadding bold"
+                            showFullScreenButton="true"
+                            initiallyVisibleFields="DocumentItem,StatusText,NetDueDate,DocumentType,FiscalYear,AssignmentNumber,DocumentTypeDesciption,DateToSendNextSMS"
+                        >
+                            <smartTable:customToolbar>
+                                <OverflowToolbar>
+                                    <ToolbarSeparator />
+                                    <ToolbarSpacer />
+
+                                    
+                                    <ToggleButton id="btnSendNewMessage" 
+                                                  icon="sap-icon://paper-plane" 
+                                                  text="{i18n>btnSendNewMessage}" 
+                                                  enabled="true"
+                                                   pressed="false" 
+                                                   press="onSendNewMessage" />
+                                    <ToolbarSeparator />
+                                </OverflowToolbar>
+                            </smartTable:customToolbar>
+
+                            <Table alternateRowColors="true" >
+                            <columns>    
+
+                                 <Column id="Customer" hAlign="Begin" width="7rem">
+										<customData>
+											<core:CustomData 
+												key="p13nData"
+												value='\{   "columnKey": "Customer", 
+                                                            "columnIndex":"0", 
+                                                            "leadingProperty": "Customer", 
+                                                            "sortProperty": "Customer", 
+                                                            "displayBehaviour": "descriptionOnly", 
+                                                            "width": "7rem"}'/>
+											</customData>
+									<Label text="{i18n>Customer}" />
+								</Column>  
+                                
+                                 <Column id="Company" hAlign="Begin" width="6rem">
+										<customData>
+											<core:CustomData 
+												key="p13nData"
+												value='\{   "columnKey": "Company", 
+                                                            "columnIndex":"1", 
+                                                            "leadingProperty": "Company", 
+                                                            "sortProperty": "Company", 
+                                                            "displayBehaviour": "descriptionOnly", 
+                                                            "width": "6rem"}'/>
+											</customData>
+									<Label text="{i18n>Company}" />
+								</Column>  
+
+                                 <Column id="Document" hAlign="Begin" width="7rem">
+										<customData>
+											<core:CustomData 
+												key="p13nData"
+												value='\{   "columnKey": "Document", 
+                                                            "columnIndex":"2", 
+                                                            "leadingProperty": "Document", 
+                                                            "sortProperty": "Document", 
+                                                            "displayBehaviour": "descriptionOnly", 
+                                                            "width": "7rem"}'/>
+											</customData>
+									<Label text="{i18n>Document}" />
+								</Column>
+
+                                 <Column id="DocumentItem" hAlign="Begin" width="5rem">
+										<customData>
+											<core:CustomData 
+												key="p13nData"
+												value='\{   "columnKey": "DocumentItem", 
+                                                            "columnIndex":"3", 
+                                                            "leadingProperty": "DocumentItem", 
+                                                            "sortProperty": "DocumentItem", 
+                                                            "displayBehaviour": "descriptionOnly", 
+                                                            "width": "5rem"}'/>
+											</customData>
+									<Label text="{i18n>DocumentItem}" />
+								</Column>
+
+                                 <Column id="DocumentDate" hAlign="Begin" width="7rem">
+										<customData>
+											<core:CustomData 
+												key="p13nData"
+												value='\{   "columnKey": "DocumentDate", 
+                                                            "columnIndex":"4", 
+                                                            "leadingProperty": "DocumentDate", 
+                                                            "sortProperty": "DocumentDate", 
+                                                            "displayBehaviour": "descriptionOnly", 
+                                                            "width": "7rem"}'/>
+											</customData>
+									<Label text="{i18n>DocumentDate}" />
+								</Column>  
+                            </columns>
+                             <items>
+                                <ColumnListItem  vAlign="Inherit">
+                                    <cells>
+                                        <Link 
+											text="{
+												path: 'Customer',
+                                                class: 'bold'
+											}"
+										/>                 
+                                        <Text
+											text="{
+												path: 'Company'
+											}"
+										/>                 
+                                        <Link 
+											text="{
+												path: 'Document'
+											}"
+										/>                 
+                                        <Text 
+											text="{
+												path: 'DocumentItem'
+											}"
+										/>                 
+                                        <Text 
+											text="{
+												path: 'DocumentDate',
+												type : 'sap.ui.model.type.Date',
+												formatOptions: {
+													style: 'short',
+													UTC: 'true'
+												}
+                                            }"
+										/>   
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                            <smartTable:layoutData>
+                                <FlexItemData growFactor="1" baseSize="0%" />
+                            </smartTable:layoutData>
+                        </smartTable:SmartTable>
+
+                    </VBox>
+                </content>
+            </Page>
+        </pages>
+
+    </NavContainer>
+</mvc:View>
