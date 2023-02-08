@@ -1,11 +1,11 @@
 <mvc:View xmlns="sap.m" 
-         controllerName="com.unimed.prestativ.zfisendbillingsms.controller.Main" 
-         xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
-         xmlns:smartTable="sap.ui.comp.smarttable" 
-         xmlns:mvc="sap.ui.core.mvc" 
-         xmlns:core="sap.ui.core" 
-         displayBlock="true" 
-         height="100%">
+          controllerName="com.unimed.prestativ.zfisendbillingsms.controller.Main" 
+          xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+          xmlns:smartTable="sap.ui.comp.smarttable" 
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns:core="sap.ui.core" 
+          displayBlock="true" 
+          height="100%">
 
     <NavContainer autoFocus="true" 
                  defaultTransitionName="slide" height="100%" visible="true" width="100%">
@@ -48,7 +48,7 @@
                             showRowCount="true"
                             class="sapUiResponsiveContentPadding bold"
                             showFullScreenButton="true"
-                            initiallyVisibleFields="DocumentItem,StatusText,NetDueDate,DocumentType,FiscalYear,AssignmentNumber,DocumentTypeDesciption,DateToSendNextSMS"
+                            initiallyVisibleFields="DocumentType,FiscalYear,AssignmentNumber,DocumentTypeDesciption,DateToSendNextSMS"
                         >
                             <smartTable:customToolbar>
                                 <OverflowToolbar>
@@ -60,8 +60,8 @@
                                                   icon="sap-icon://paper-plane" 
                                                   text="{i18n>btnSendNewMessage}" 
                                                   enabled="true"
-                                                   pressed="false" 
-                                                   press="onSendNewMessage" />
+                                                  pressed="false" 
+                                                  press="onSendNewMessage" />
                                     <ToolbarSeparator />
                                 </OverflowToolbar>
                             </smartTable:customToolbar>
@@ -70,73 +70,101 @@
                             <columns>    
 
                                  <Column id="Customer" hAlign="Begin" width="7rem">
-										<customData>
-											<core:CustomData 
-												key="p13nData"
-												value='\{   "columnKey": "Customer", 
-                                                            "columnIndex":"0", 
-                                                            "leadingProperty": "Customer", 
-                                                            "sortProperty": "Customer", 
-                                                            "displayBehaviour": "descriptionOnly", 
-                                                            "width": "7rem"}'/>
-											</customData>
 									<Label text="{i18n>Customer}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "Customer", 
+                                                        "columnIndex":"0", 
+                                                        "leadingProperty": "Customer", 
+                                                        "sortProperty": "Customer", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
 								</Column>  
                                 
                                  <Column id="Company" hAlign="Begin" width="6rem">
-										<customData>
-											<core:CustomData 
-												key="p13nData"
-												value='\{   "columnKey": "Company", 
-                                                            "columnIndex":"1", 
-                                                            "leadingProperty": "Company", 
-                                                            "sortProperty": "Company", 
-                                                            "displayBehaviour": "descriptionOnly", 
-                                                            "width": "6rem"}'/>
-											</customData>
 									<Label text="{i18n>Company}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "Company", 
+                                                        "columnIndex":"1", 
+                                                        "leadingProperty": "Company", 
+                                                        "sortProperty": "Company", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "6rem"}'/>
+										</customData>
 								</Column>  
 
                                  <Column id="Document" hAlign="Begin" width="7rem">
-										<customData>
-											<core:CustomData 
-												key="p13nData"
-												value='\{   "columnKey": "Document", 
-                                                            "columnIndex":"2", 
-                                                            "leadingProperty": "Document", 
-                                                            "sortProperty": "Document", 
-                                                            "displayBehaviour": "descriptionOnly", 
-                                                            "width": "7rem"}'/>
-											</customData>
 									<Label text="{i18n>Document}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "Document", 
+                                                        "columnIndex":"2", 
+                                                        "leadingProperty": "Document", 
+                                                        "sortProperty": "Document", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
 								</Column>
 
                                  <Column id="DocumentItem" hAlign="Begin" width="5rem">
-										<customData>
-											<core:CustomData 
-												key="p13nData"
-												value='\{   "columnKey": "DocumentItem", 
-                                                            "columnIndex":"3", 
-                                                            "leadingProperty": "DocumentItem", 
-                                                            "sortProperty": "DocumentItem", 
-                                                            "displayBehaviour": "descriptionOnly", 
-                                                            "width": "5rem"}'/>
-											</customData>
 									<Label text="{i18n>DocumentItem}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "DocumentItem", 
+                                                        "columnIndex":"3", 
+                                                        "leadingProperty": "DocumentItem", 
+                                                        "sortProperty": "DocumentItem", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "5rem"}'/>
+										</customData>
 								</Column>
 
                                  <Column id="DocumentDate" hAlign="Begin" width="7rem">
-										<customData>
-											<core:CustomData 
-												key="p13nData"
-												value='\{   "columnKey": "DocumentDate", 
-                                                            "columnIndex":"4", 
-                                                            "leadingProperty": "DocumentDate", 
-                                                            "sortProperty": "DocumentDate", 
-                                                            "displayBehaviour": "descriptionOnly", 
-                                                            "width": "7rem"}'/>
-											</customData>
 									<Label text="{i18n>DocumentDate}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "DocumentDate", 
+                                                        "columnIndex":"4", 
+                                                        "leadingProperty": "DocumentDate", 
+                                                        "sortProperty": "DocumentDate", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
+								</Column>  
+
+                                <Column id="StatusText" hAlign="Begin" width="7rem">
+									<Label text="{i18n>StatusText}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "StatusText", 
+                                                        "columnIndex":"5", 
+                                                        "leadingProperty": "StatusText", 
+                                                        "sortProperty": "StatusText", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
+								</Column> 
+
+                                 <Column id="NetDueDate" hAlign="Begin" width="7rem">
+									<Label text="{i18n>NetDueDate}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "NetDueDate", 
+                                                        "columnIndex":"6", 
+                                                        "leadingProperty": "NetDueDate", 
+                                                        "sortProperty": "NetDueDate", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
 								</Column>  
                             </columns>
                              <items>
@@ -166,6 +194,18 @@
                                         <Text 
 											text="{
 												path: 'DocumentDate',
+												type : 'sap.ui.model.type.Date',
+												formatOptions: {
+													style: 'short',
+													UTC: 'true'
+												}
+                                            }"
+										/>
+                                        <core:Icon src="{ path: 'StatusText' }" />
+                                          
+                                        <Text 
+											text="{
+												path: 'NetDueDate',
 												type : 'sap.ui.model.type.Date',
 												formatOptions: {
 													style: 'short',
