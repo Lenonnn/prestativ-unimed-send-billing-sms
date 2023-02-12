@@ -1,5 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" 
-                         xmlns:core="sap.ui.core">
+                         xmlns:core="sap.ui.core"
+                         >
     <Dialog
         closeOnNavigation="true"
         contentHeight="90%"
@@ -7,10 +8,10 @@
         draggable="false"
         escapeHandler=""
         horizontalScrolling="true"
-        icon=""
-        resizable="false"
+        icon="sap-icon://appointment"
+        resizable="true"
         showHeader="true"
-        state="Success"
+        state="Information"
         stretch="false"
         title="Agendamento de envio de SMS"
         titleAlignment="Center"
@@ -29,9 +30,18 @@
                         <FlexBox justifyContent="Center" alignContent="SpaceBetween" width="100%">
 
                             <!-- Conteúdo do primeiro VBox -->
+
+                            <VBox alignItems="Start" class="sapUiLargeMargin" height="auto"  width="100%">
+                                <Label labelFor="rbg1" text="Tipo de envio" />
+                                <RadioButtonGroup id="rbg1" columns="2" valueState="Information" width="15rem" >
+                                    <RadioButton id="RB1" text="Agendado" select="onRBChange" />
+                                    <RadioButton id="RB2" text="Imediato" select="onRBChange" />
+                                </RadioButtonGroup>
+                            </VBox>
+
                             <VBox alignItems="Start" class="sapUiLargeMargin" height="auto"  width="100%">
                                 <Label text="Informe data para agendamento" labelFor="GroupA" />
-                                <DatePicker id="iptDate" value="" placeholder="Informe data de envio desejada" width="20rem" />
+                                <DatePicker id="iptDate" placeholder="Informe data de envio desejada" width="20rem" />
                             </VBox>
 
                             <VBox alignItems="Start" class="sapUiLargeMargin" height="auto"  width="100%">
@@ -39,13 +49,6 @@
                                 <Input id="iptVal" value="" placeholder="Digite uma identificação para a mensagem" width="20rem" />
                             </VBox>
 
-                            <VBox alignItems="Start" class="sapUiLargeMargin" height="auto"  width="100%">
-                                <Label labelFor="rbg1" text="Tipo de envio" />
-                                <RadioButtonGroup id="rbg1" columns="2" valueState="Information" width="15rem" >
-                                    <RadioButton id="RB4-1" text="Imediato" />
-                                    <RadioButton id="RB4-2" text="Agendado" />
-                                </RadioButtonGroup>
-                            </VBox>
 
                         </FlexBox>
                     </items>

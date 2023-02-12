@@ -1,75 +1,49 @@
-<core:FragmentDefinition 
-        xmlns="sap.m" 
-        xmlns:core="sap.ui.core"
-        xmlns:smast="sap.ui.comp.smartform"
-        xmlns:mvc="sap.ui.core.mvc"
-        xmlns:s="sap.ui.comp.smartfield"
-        >
-    <Dialog closeOnNavigation="true" 
-            contentHeight="90%" 
-            contentWidth="90%" 
-            draggable="false" 
-            escapeHandler="" 
-            horizontalScrolling="true" 
-            icon="" 
-            resizable="false" 
-            showHeader="true" 
-            state="Success" 
-            stretch="false" 
-            title="Agendamento de envio de SMS" 
-            titleAlignment="Center" 
-            type="Standard" 
-            verticalScrolling="true">
-
-        <beginButton />
-            <!-- <Button id="btnDownloadPDF" icon="sap-icon://pdf-attachment" text="{i18n>btnDownloadPDF}" press="onGetPDF" enabled="true"/> -->
-
-        <buttons />
-
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog
+        closeOnNavigation="true"
+        contentHeight="90%"
+        contentWidth="90%"
+        draggable="false"
+        escapeHandler=""
+        horizontalScrolling="true"
+        icon="sap-icon://action-settings"
+        resizable="true"
+        showHeader="true"
+        state="Information"
+        stretch="false"
+        title="Manutenção e Cadastro de SMS"
+        titleAlignment="Center"
+        type="Standard"
+        verticalScrolling="true"
+    >
         <buttons class="sapUiMediumMarginEnd">
-            <Button id="btnSend" icon="sap-icon://paper-plane" text="{i18n>btnSend}" press="onSendSMS" enabled="true"/>
-            <Button id="btnExit" icon="sap-icon://decline" text="{i18n>btnExit}" press="onExit"/>       
+            <Button id="btnCreate" text="{i18n>btnCreate}" icon="sap-icon://add-document" press="onCreateSMS" type="Accept"/>
+            <Button id="btnRead" text="{i18n>btnRead}" icon="sap-icon://display" press="onReadSMS" type="Ghost" />
+            <Button id="btdUpdate" text="{i18n>btnUpdate}" icon="sap-icon://edit" press="onUpdateSMS" type="Ghost" />
+            <Button id="btnDelete" text="{i18n>btnDelete}" icon="sap-icon://delete" press="onDeleteSMS" type="Reject" />
+            <Button id="btnExitSMS" text="{i18n>btnExit}" icon="sap-icon://decline" press="onExitSMS" type="Ghost" />
         </buttons>
 
-         <content>
+        <VBox direction="Column" />
+        <!-- <Table items="{/items}">
+            <columns>
+            <Column>
+                <Text text="Item Name"/>
+            </Column>
+            <Column>
+                <Text text="Item Quantity"/>
+            </Column>
+            </columns>
+            <items>
+            <ColumnListItem>
+                <cells>
+                <Text text="{itemName}"/>
+                <Text text="{itemQuantity}"/>
+                </cells>
+            </ColumnListItem>
+            </items>
+        </Table> -->
 
-            <VBox class="sapUiLargeMargin">
-                <Label text="Informe dados do agendamento" labelFor="GroupA" class="sapUiTinyMarginTopBottom"/>
-                <!-- <VBox > -->
-                    <DatePicker id="1" placeholder="Escolha data de agendamento" />
-                <!-- <Label text="Informe dados do agendamento" labelFor="GroupA" class="sapUiTinyMarginTopBottom"/>
-                    <Input text="" id="" placeholder="Detalhes do agendamento" /> -->
-                <!-- </VBox> -->
-            </VBox>
-            <VBox class="sapUiLargeMargin">
-                <Label text="Informe dados do agendamento" labelFor="GroupA" class="sapUiTinyMarginTopBottom"/>
-                <!-- <VBox > -->
-                    <DatePicker id="2" placeholder="Escolha data de agendamento" />
-                <!-- <Label text="Informe dados do agendamento" labelFor="GroupA" class="sapUiTinyMarginTopBottom"/>
-                    <Input text="" id="" placeholder="Detalhes do agendamento" /> -->
-                <!-- </VBox> -->
-            </VBox>
-            <!-- <VBox class="sapUiLargeMargin">
-                <Label text="Escolha a mensagem" labelFor="GroupA" class="sapUiTinyMarginTopBottom"/>
-                <CheckBox id="checkb10" selected="true" text="{i18n>cb1}" valueState="Information"  />
-                <CheckBox id="checkb20" selected="true" text="{i18n>cb2}" valueState="Information" />
-                <CheckBox id="checkb30" selected="false" text="{i18n>cb3}" valueState="Information" />
-                <CheckBox id="checkb40" selected="false" text="{i18n>cb4}" valueState="Information" />
-                <CheckBox id="checkb50" selected="false" text="{i18n>cb5}" valueState="Information" />
-            </VBox> -->
-            <VBox >
-        
-            </VBox>
-
-        </content>
-
-        
-
-        <customHeader>
-		</customHeader>
-
-        <endButton />
-        <subHeader />
-        
     </Dialog>
+    
 </core:FragmentDefinition>

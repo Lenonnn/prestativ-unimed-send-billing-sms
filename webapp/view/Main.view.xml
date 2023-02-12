@@ -48,21 +48,34 @@
                             showRowCount="true"
                             class="sapUiResponsiveContentPadding bold"
                             showFullScreenButton="true"
-                            initiallyVisibleFields="DocumentType,FiscalYear,AssignmentNumber,DocumentTypeDesciption,DateToSendNextSMS"
+                            initiallyVisibleFields="DocumentType,FiscalYear,CustomerGroups,AssignmentNumber,DocumentTypeDesciption,DateToSendNextSMS"
                         >
                             <smartTable:customToolbar>
                                 <OverflowToolbar>
-                                    <ToolbarSeparator />
-                                    <ToolbarSpacer />
 
-                                    
-                                    <ToggleButton id="btnSendNewMessage" 
-                                                  icon="sap-icon://paper-plane" 
-                                                  text="{i18n>btnSendNewMessage}" 
+
+                                    <ToolbarSpacer />    
+
+                                        <ToolbarSeparator />
+
+                                        <ToggleButton id="btnListMessages" 
+                                                  icon="sap-icon://display" 
+                                                  text="{i18n>btnListMessage}" 
                                                   enabled="true"
                                                   pressed="false" 
-                                                  press="onSendNewMessage" />
+                                                  press="onListMessages" />
+                                                
+                                        <ToolbarSeparator />
+
+                                        <ToggleButton id="btnSendNewMessage" 
+                                                    icon="sap-icon://paper-plane" 
+                                                    text="{i18n>btnSendNewMessage}" 
+                                                    enabled="true"
+                                                    pressed="false" 
+                                                    press="onSendNewMessage" />
+                               
                                     <ToolbarSeparator />
+
                                 </OverflowToolbar>
                             </smartTable:customToolbar>
 
@@ -201,7 +214,12 @@
 												}
                                             }"
 										/>
-                                        <core:Icon src="{ path: 'StatusText' }" />
+                                        <core:Icon id="IconStatus" 
+                                                   src="{ path: 'StatusText', 
+                                                          formatter: '.formatter.formatStatusIcon'}" 
+                                                    class="class1"
+                                                    color="#FF0000"
+                                                    />
                                           
                                         <Text 
 											text="{

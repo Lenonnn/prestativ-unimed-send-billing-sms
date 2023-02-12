@@ -1,77 +1,164 @@
-sap.ui.define([
+sap.ui.define(
+  [
     "./BaseController",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-],
-    /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
-     */
-    function (BaseController,
-              Fragment,
-              JSONModel,
-              MessageBox) {
-        "use strict";
+    "../model/Formatter",
+  ],
+  /**
+   * @param {typeof sap.ui.core.mvc.Controller} Controller
+   */
+  function (BaseController, Fragment, JSONModel, MessageBox, Formatter) {
+    "use strict";
 
-        return BaseController.extend("com.unimed.prestativ.zfisendbillingsms.controller.Main", {
-            onInit: function () {
-                this.oFileModel = this.getOwnerComponent().getModel();
-            },
+    return BaseController.extend(
+      "com.unimed.prestativ.zfisendbillingsms.controller.Main",
+      {
+        formatter: Formatter,
 
-            onAfterRendering: function (oEvent) {
-                // RsponsiveTable in MultiSelect
-                this.getView().byId("smartTable").getTable().setMode("MultiSelect");
-                this.getView().byId("smartTable").getTable().setGrowing(true);
-                this.getView().byId("smartTable").getTable().setGrowingThreshold(10);
-                this.byId("btnSendNewMessage").setEnabled(true);
-            },
+        onInit: function () {
+          // Get model when app start run
+          this.oFileModel = this.getOwnerComponent().getModel();
+        },
 
-            onBegin: function(){
-                console.log("Begin was pressed") ;
-            },
+        onAfterRendering: function (oEvent) {
+          // RsponsiveTable in MultiSelect
+          this.getView().byId("smartTable").getTable().setMode("MultiSelect");
+          this.getView().byId("smartTable").getTable().setGrowing(true);
+          this.getView().byId("smartTable").getTable().setGrowingThreshold(10);
+          this.byId("btnSendNewMessage").setEnabled(true);
+        },
 
-            onSendNewMessage: async function(){
+        onBegin: function () {
+          console.log("Begin was pressed");
+        },
 
-                this.byId("btnSendNewMessage").setPressed(false);
-                await this._loadFragmentScheduleSMS();
+        onSendNewMessage: async function () {
+          this.byId("btnSendNewMessage").setPressed(false);
+          await this._loadFragmentScheduleSMS();
+        },
 
-            },
-            onSendSMS: function(){
+        onListMessages: async function () {
+          this.byId("btnListMessages").setPressed(false);
+          await this._loadFragmentMaintenenceSMS();
+        },
 
-            },
-      
-            onExit: function (oEvent) {
-                this._oDialog.close();
-            },
+        onSendSMS: function () {},
+        onSaveSMS: function () {},
 
-            _loadFragmentScheduleSMS: async function () {
-                if (!this._oDialog) {
-                  this._oDialog = new Fragment.load({
-                    id: this.getView().getId(),
-                    name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.MaintenenceSMSMessages2",
-                    controller: this,
-                  });
-      
-                  await this._oDialog
-                    .then(
-                      function (oFragment) {
-                        this.getView().addDependent(oFragment);
-                        this._oDialog = oFragment;
-                      }.bind(this)
-                    )
-                    .catch(function (oError) {
-                      console.log(oError);
-                    });
-                }
-                this._oDialog.open();
-            },
+        onExit: function (oEvent) {
+          this._oDialog.close();
+        },
+        onExitSMS: function (oEvent) {
+          this._oDialogM.close();
+        },
+        onExitSMSDetails: function (oEvent) {
+          this._oDialogSMSDetail.close();
+        },
 
-		onFilter: function(oEvent) {
-			// var sValue = oEvent.getParameter("value");
-      // var oFilter = new Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
-      // var oBinding = this.byId("table").getBinding("items");
-      // oBinding.filter([oFilter]);
-		},
+        onRBChange: function (oEvent) {
+          let sendDefinition = oEvent.getParameter("id");
 
-        });
-    });
+          if (sendDefinition.indexOf("RB1") !== -1) {
+            this.getView().byId("iptDate").setEnabled(true);
+          } else {
+            this.getView().byId("iptDate").setEnabled(false);
+            this.getView().byId("iptDate").setValue("");
+          }
+        },
+
+        onFilter: function (oEvent) {
+          // var sValue = oEvent.getParameter("value");
+          // var oFilter = new Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
+          // var oBinding = this.byId("table").getBinding("items");
+          // oBinding.filter([oFilter]);
+        },
+
+        onCreateSMS: async function (oEvent) {
+          await this._loadFragmentMessageSMSDetails();
+        },
+
+        onReadSMS: async function (oEvent) {
+          await this._loadFragmentMessageSMSDetails();
+        },
+
+        onUpdateSMS: async function (oEvent) {
+          await this._loadFragmentMessageSMSDetails();
+        },
+
+        onDeleteSMS: async function (oEvent) {
+          await this._loadFragmentMessageSMSDetails();
+        },
+
+        _loadFragmentScheduleSMS: async function () {
+          if (!this._oDialog) {
+            this._oDialog = new Fragment.load({
+              id: this.getView().getId(),
+              name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.SendSMSMessage",
+              controller: this,
+            });
+
+            await this._oDialog
+              .then(
+                function (oFragment) {
+                  this.getView().addDependent(oFragment);
+                  this._oDialog = oFragment;
+                }.bind(this)
+              )
+              .catch(function (oError) {
+                console.log(oError);
+              });
+          }
+          this._oDialog.open();
+        },
+
+        _loadFragmentMaintenenceSMS: async function () {
+          if (!this._oDialogM) {
+            this._oDialogM = new Fragment.load({
+              id: this.getView().getId(),
+              name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.MaintenenceSMSMessages",
+              controller: this,
+            });
+
+            await this._oDialogM
+              .then(
+                function (oFragment) {
+                  this.getView().addDependent(oFragment);
+                  this._oDialogM = oFragment;
+                }.bind(this)
+              )
+              .catch(function (oError) {
+                console.log(oError);
+              });
+          }
+          this._oDialogM.open();
+        },
+        _loadFragmentMessageSMSDetails: async function () {
+          if (!this._oDialogSMSDetail) {
+            this._oDialogSMSDetail = new Fragment.load({
+              id: this.getView().getId(),
+              name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.MessageDetails",
+              controller: this,
+            });
+
+            await this._oDialogSMSDetail
+              .then(
+                function (oFragment) {
+                  this.getView().addDependent(oFragment);
+                  this._oDialogSMSDetail = oFragment;
+                }.bind(this)
+              )
+              .catch(function (oError) {
+                console.log(oError);
+              });
+          }
+          this._oDialogSMSDetail.open();
+        },
+
+        
+
+      }
+    );
+  }
+);

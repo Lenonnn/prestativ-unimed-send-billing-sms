@@ -1,7 +1,8 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "com/unimed/prestativ/zfisendbillingsms/model/models"
+        "com/unimed/prestativ/zfisendbillingsms/model/models",
+        "./library/moment.min"
     ],
     function (UIComponent, Device, models) {
         "use strict";
