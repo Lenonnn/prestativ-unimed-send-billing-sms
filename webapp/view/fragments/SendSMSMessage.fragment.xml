@@ -19,7 +19,7 @@
         verticalScrolling="true"
     >
         <buttons class="sapUiMediumMarginEnd">
-            <Button id="btnSend" icon="sap-icon://paper-plane" text="{i18n>btnSend}" press="onSendSMS" enabled="true" />
+            <Button id="btnSend" icon="sap-icon://paper-plane" text="{i18n>btnSend}" press="onSendSMSToSchedule" enabled="true" />
             <Button id="btnExit" icon="sap-icon://decline" text="{i18n>btnExit}" press="onExit" />
         </buttons>
 

@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:mvc="sap.ui.core.mvc">
+
+    <Dialog id="formCreateSMS" 
+            title="Formulário SMS" 
+            closeOnNavigation="true" 
+            contentHeight="40%" 
+            contentWidth="60%" 
+            horizontalScrolling="true" 
+            verticalScrolling="true" 
+            icon="sap-icon://action-settings" 
+            resizable="true" 
+            showHeader="true" 
+            state="Information" 
+            titleAlignment="Center" 
+            type="Standard">
+
+        <content>
+            <form:SimpleForm id="formCreate" width="90%" class="sapUiSmallMarginTop sapUiResponsiveContentPadding">
+                <form:content>
+
+                    <Label text="Identificação" class="sapUiTinyMarginTop" />
+                    <Input id="ipCreateIdentification" maxLength="5" value="" width="100%" enabled="true" visible="true" class="sapUiTinyMarginTop" />
+
+                    <Label text="Título SMS" class="sapUiTinyMarginTop" />
+                    <Input id="idCreateTitle" maxLength="20" value="" width="100%" enabled="true" visible="true"  class="sapUiTinyMarginTop"/>
+
+                    <Label text="Mensagem SMS" class="sapUiTinyMarginTop" />
+                    <TextArea id="idCreateSSMText"
+                              cols="40"
+                              height="100%"
+                              width="100%"
+                              rows="4"
+                              showExceededText="true"
+                              wrapping="Soft"
+                              maxLength="160"
+                              enabled="true" 
+                              visible="true"
+                              class="sapUiTinyMarginTop"
+                    >
+                    </TextArea>
+                </form:content>
+            </form:SimpleForm>
+        </content>
+
+        <beginButton>
+            <Button id="btnSave" text="{i18n>btnSave}" icon="sap-icon://save" press="onSaveSMSCreate" type="Accept" />
+        </beginButton>
+
+        <endButton>
+            <Button id="btnExitSMSCreate" text="{i18n>btnExitSave}" icon="sap-icon://decline" press="onExitSMSCreate" type="Reject" />
+        </endButton>
+        
+    </Dialog>
+</core:FragmentDefinition>

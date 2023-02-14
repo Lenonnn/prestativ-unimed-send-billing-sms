@@ -1,4 +1,7 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns="sap.m" 
+                         xmlns:core="sap.ui.core"
+                         xmlns:ui="sap.ui.table" 
+                         >
     <Dialog
         closeOnNavigation="true"
         contentHeight="90%"
@@ -17,32 +20,51 @@
         verticalScrolling="true"
     >
         <buttons class="sapUiMediumMarginEnd">
-            <Button id="btnCreate" text="{i18n>btnCreate}" icon="sap-icon://add-document" press="onCreateSMS" type="Accept"/>
-            <Button id="btnRead" text="{i18n>btnRead}" icon="sap-icon://display" press="onReadSMS" type="Ghost" />
-            <Button id="btdUpdate" text="{i18n>btnUpdate}" icon="sap-icon://edit" press="onUpdateSMS" type="Ghost" />
+            <Button id="btnCreate" text="{i18n>btnCreate}" icon="sap-icon://add-document" press="onCallPopUpCreateSMS" type="Accept"/>
+            <!-- <Button id="btnRead" text="{i18n>btnRead}" icon="sap-icon://display" press="onReadSMS" type="Ghost" /> -->
+            <Button id="btdUpdate" text="{i18n>btnUpdate}" icon="sap-icon://edit" press="onCallPopUpUpdateSMS" type="Ghost" />
             <Button id="btnDelete" text="{i18n>btnDelete}" icon="sap-icon://delete" press="onDeleteSMS" type="Reject" />
-            <Button id="btnExitSMS" text="{i18n>btnExit}" icon="sap-icon://decline" press="onExitSMS" type="Ghost" />
+            <Button id="btnExitSMS" text="{i18n>btnExit}" icon="sap-icon://decline" press="onExitSMSPopUp" type="Ghost" />
         </buttons>
 
-        <VBox direction="Column" />
-        <!-- <Table items="{/items}">
-            <columns>
-            <Column>
-                <Text text="Item Name"/>
-            </Column>
-            <Column>
-                <Text text="Item Quantity"/>
-            </Column>
+
+        <Table id="idTableSMS"
+               mode="SingleSelectLeft"
+               items="{/ZFI_CDS_TEXTS_TO_SEND_SMS}" 
+               alternateRowColors="true"
+               class="sapUiResponsiveContentPadding"
+               headerText="Mensagens SMS Cadastradas" 
+               growingScrollToLoad="true"
+               noDataText="Sem dados"
+               growing="true"
+               
+               >
+            <columns >
+                <Column width="10%">
+                    <Text text="ID" />
+                </Column>
+                <Column width="10%">
+                    <Text text="Identificador" />
+                </Column>
+                <Column width="25%">
+                    <Text text="Titulo SMS"/>
+                </Column>
+                <Column width="55%">
+                    <Text text="Texto SMS"/>
+                </Column>
             </columns>
+
             <items>
-            <ColumnListItem>
-                <cells>
-                <Text text="{itemName}"/>
-                <Text text="{itemQuantity}"/>
-                </cells>
-            </ColumnListItem>
+                <ColumnListItem>
+                    <cells>
+                        <Link text="{ path: 'IdSMS' }" textAlign="Center" class="bold" />
+                        <Text text="{ path: 'IdentificadorSMS' }" class="bold" />
+                        <Text text="{ path: 'TituloSMS' }" />
+                        <Text text="{ path: 'TextoSMS' }" />
+                    </cells>
+                </ColumnListItem>
             </items>
-        </Table> -->
+        </Table>
 
     </Dialog>
     
