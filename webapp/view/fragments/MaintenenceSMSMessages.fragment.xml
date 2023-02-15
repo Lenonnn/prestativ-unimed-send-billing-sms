@@ -35,6 +35,7 @@
                class="sapUiResponsiveContentPadding"
                headerText="Mensagens SMS Cadastradas" 
                growingScrollToLoad="true"
+               footerText="Lista de SMS cadastrados"
                noDataText="Sem dados"
                growing="true"
                

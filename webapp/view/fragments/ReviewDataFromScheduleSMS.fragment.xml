@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:mvc="sap.ui.core.mvc">
+
+    <Dialog id="formReviewSMS" 
+            title="Revisão de dados do agendamento de envio de SMS" 
+            closeOnNavigation="true" 
+            contentHeight="50%" 
+            contentWidth="70%" 
+            horizontalScrolling="true" 
+            verticalScrolling="true" 
+            icon="sap-icon://activity-2" 
+            resizable="true" 
+            showHeader="true" 
+            state="Information" 
+            titleAlignment="Center" 
+            type="Standard">
+
+        <content>
+            <form:SimpleForm id="formReview" width="90%" class="sapUiSmallMarginTop sapUiResponsiveContentPadding">
+                <form:content>
+
+                    <Label text="Identificação" class="sapUiTinyMarginTop" />
+                    <Input id="ipReviewIdentification" maxLength="5" value="" width="100%" 
+                           enabled="false" visible="true" class="sapUiTinyMarginTop" />
+
+                    <Label text="Prazo de Reenvio de SMS ( dias )" class="sapUiTinyMarginTop" />
+                    <Input id="idReviewReSend" maxLength="2" value="" width="100%" 
+                           enabled="false" visible="true"  class="sapUiTinyMarginTop"/>
+
+                    <Label text="Data envio" class="sapUiTinyMarginTop" />
+                    <DatePicker id="idReviewDateToSend" width="100%" 
+                           enabled="false" visible="true"  class="sapUiTinyMarginTop" displayFormat="short"/>
+
+                    <Label text="Mensagem SMS" class="sapUiTinyMarginTop" />
+                    <TextArea id="idReviewSMSText"
+                              cols="40"
+                              height="100%"
+                              width="100%"
+                              rows="4"
+                              showExceededText="true"
+                              wrapping="Soft"
+                              maxLength="160"
+                              enabled="true" 
+                              visible="true"
+                              class="sapUiTinyMarginTop"
+                    >
+                    </TextArea>
+                </form:content>
+            </form:SimpleForm>
+        </content>
+
+        <beginButton>
+            <Button id="btnReviewSave" text="Confirmar Envio" icon="sap-icon://save" press="onCreateScheduleSMS" type="Accept" />
+        </beginButton>
+
+        <endButton>
+            <Button id="btnExitSMSReview" text="Sair" icon="sap-icon://decline" press="onExitSMSReview" type="Reject" />
+        </endButton>
+        
+    </Dialog>
+</core:FragmentDefinition>

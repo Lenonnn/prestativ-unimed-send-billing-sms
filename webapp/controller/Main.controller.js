@@ -31,12 +31,21 @@ sap.ui.define(
         },
 
         onBegin: function () {
-          console.log("Begin was pressed");
+          // console.log("Begin was pressed");
         },
 
         onSendNewMessage: async function () {
+
           this.byId("btnSendNewMessage").setPressed(false);
-          await this._loadFragmentScheduleSMS();
+          let oModel = this.getView().byId("smartTable").getTable().getSelectedItems();
+
+          if (oModel.length != 0) {
+            await this._loadFragmentScheduleSMS();
+          } else {
+            MessageBox.warning(
+              "Selecione pelo menos uma partida vencida para enviar SMS"
+            );
+          }
         },
 
         onListMessages: async function () {
@@ -44,11 +53,50 @@ sap.ui.define(
           await this._loadFragmentMaintenenceSMS();
         },
 
-        onSendSMSToSchedule: function () {
-          let oIdentifier = '';
-          let oTitle = '';
-          let oText = '';
+        onSendSMSToSchedule: async function () {
 
+          let oSMS = this.getView().byId("idTableSMSSchedule").getSelectedItem();
+
+          if (oSMS === null) {
+            MessageBox.alert("Selecione uma mensagem para enviar");
+
+          } else {
+
+            let oEntry = oSMS.getBindingContext().getObject();
+            let oText = oEntry.TextoSMS;
+
+            let oReSend = this.getView().byId("iptDaysResend").mProperties.value;
+            if (oReSend === "") {
+              oReSend = "00";
+            }
+
+            let oIdentification = this.getView().byId("iptVal").mProperties.value;
+
+            if (oIdentification === "") {
+              oIdentification = "EMPTY";
+            }
+
+            let oCheckBoxSchedule = this.getView().byId("RB1").getProperty("selected");
+            let oScheduleDate = this.getView().byId("iptDate").mProperties.value;
+
+            if (oCheckBoxSchedule === true) {
+              
+              if (oScheduleDate === "") {
+                oScheduleDate = this._getCurrentDate( );
+              }   
+
+            } else {
+              oScheduleDate = this._getCurrentDate( );
+            }
+
+            await this._loadFragmentMessageSMSReview();
+
+            this.byId("ipReviewIdentification").setValue(oIdentification);
+            this.byId("idReviewReSend" ).setValue(oReSend);
+            this.byId("idReviewSMSText").setValue(oText);
+            this.byId("idReviewDateToSend").setValue(oScheduleDate);
+          }
+          
         },
 
         // Leave send message page
@@ -59,15 +107,25 @@ sap.ui.define(
         // Close main pop-up for SMS maintence view
         onExitSMSPopUp: function (oEvent) {
           this._oDialogM.close();
-          this.getModel().byId("idTableSMS").refresh(true);
         },
-        
+        onExitSMSReview: function (oEvent) {
+       
+          let clear = "";
+          this.byId("idReviewSMSText").setEditable(true);
+          this.byId("btnReviewSave").setEnabled(true);
+          
+          this.byId("ipReviewIdentification").setValue(clear);
+          this.byId("idReviewReSend" ).setValue(clear);
+          this.byId("idReviewSMSText").setValue(clear);
+          this.byId("idReviewDateToSend").setValue(clear);
+          
+          this._oDialogSMSReview.close();
+        },
+
         // Leave update SMS pop-up
         onExitSMSUpdate: function (oEvent) {
           this._oDialogSMSUpdate.close();
 
-          // this.byId("ipUpdtSMS").setEditable(false);
-          // this.byId("ipUpdtIdentification").setEditable(false);
           this.byId("idUpdtTitle").setEditable(true);
           this.byId("idUpdtSSMText").setEditable(true);
           this.byId("btnSaveUpdate").setEnabled(true);
@@ -75,7 +133,6 @@ sap.ui.define(
 
         // Leave create new SMS pop-up
         onExitSMSCreate: function (oEvent) {
-
           this._oDialogSMSCreate.close();
 
           this.byId("ipCreateIdentification").setEditable(true);
@@ -83,15 +140,13 @@ sap.ui.define(
           this.byId("idCreateSSMText").setEditable(true);
           this.byId("btnSave").setEnabled(true);
 
-          let clear = '' ;
+          let clear = "";
 
           this.byId("ipCreateIdentification").setValue(clear);
           this.byId("idCreateTitle").setValue(clear);
           this.byId("idCreateSSMText").setValue(clear);
 
           this.getView().getModel().byId("idTableSMS").refresh(true);
-
-
         },
 
         onRBChange: function (oEvent) {
@@ -117,138 +172,206 @@ sap.ui.define(
         },
 
         onCallPopUpUpdateSMS: async function (oEvent) {
-
           let oSMS = this.getView().byId("idTableSMS").getSelectedItem();
 
-          if ( oSMS === null ){
-            MessageBox.alert("Selecione uma mensagem para atualizar")
-          }else{
-
+          if (oSMS === null) {
+            MessageBox.alert("Selecione uma mensagem para atualizar");
+          } else {
             let oEntry = oSMS.getBindingContext().getObject();
 
-            if ( oEntry.IdSMS !== null && oEntry.IdSMS !== undefined ) {
-
-              // let oUpdateForm = sap.ui.getCore().byId("formUpdate");
+            if (oEntry.IdSMS !== null && oEntry.IdSMS !== undefined) {
               await this._loadFragmentMessageSMSUpdate();
-
-              // console.log(oUpdateForm);
-              // console.log(oEntry);
               this.byId("ipUpdtSMS").setValue(oEntry.IdSMS);
-              this.byId("ipUpdtIdentification").setValue(oEntry.IdentificadorSMS);
+              this.byId("ipUpdtIdentification").setValue(
+                oEntry.IdentificadorSMS
+              );
               this.byId("idUpdtTitle").setValue(oEntry.TituloSMS);
               this.byId("idUpdtSSMText").setValue(oEntry.TextoSMS);
-
-            }else{
-
+            } else {
               MessageBox.alert("Aconteceu algo inesperado");
-
             }
-
           }
-          // pegar linha selecionada da tabela de mensagens
-          // pegar propriedades title , text, id
-          // montar post
-          // pegar response
-
         },
 
-        onDeleteSMS: async function (oEvent) {         
+        onDeleteSMS: async function (oEvent) {
           //Delete Message
           let oSMS = this.getView().byId("idTableSMS").getSelectedItem();
 
-          if ( oSMS === null ){
-            MessageBox.alert("Selecione uma mensagem para deletar")
-          }else{
-
+          if (oSMS === null) {
+            MessageBox.alert("Selecione uma mensagem para deletar");
+          } else {
             let oEntry = oSMS.getBindingContext().getObject();
 
-            if ( oEntry.IdSMS !== null && oEntry.IdSMS !== undefined ) {
-              // this.byId("ipUpdtSMS").setValue(oEntry.IdSMS);
-              // this.byId("ipUpdtIdentification").setValue(oEntry.IdentificadorSMS);
-              // this.byId("idUpdtTitle").setValue(oEntry.TituloSMS);
-              // this.byId("idUpdtSSMText").setValue(oEntry.TextoSMS);
-              MessageBox.alert("Delatado com sucesso!");
-            }else{
+            if (
+              oEntry.IdSMS !== null &&
+              oEntry.IdSMS !== undefined &&
+              oEntry.IdSMS !== ""
+            ) {
+              MessageBox.confirm(
+                "Deseja Realmente deletar essa mensagem? Ela nao ficará mais dispoível para uso!",
+                {
+                  actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                  emphasizedAction: MessageBox.Action.OK,
+
+                  onClose: async function (sAction) {
+                    if (sAction == MessageBox.Action.OK) {
+                      // MessageBox.alert("Delatado com sucesso!");
+                      this.setAppBusy(true);
+                      let oID = oEntry.IdSMS;
+                      let deletePromisse = this._onDELETE(oID);
+                      let deleteSMS;
+
+                      await deletePromisse
+                        .then(function (oData) {
+                          deleteSMS = oData;
+                          MessageBox.success(
+                            `SMS número: ${deleteSMS.IdSMS} deletado com Sucesso!`
+                          );
+                        })
+                        .catch(function (err) {
+                          MessageBox.error("Aconteceu algo inesperado: ", err);
+                        });
+
+                      this.setAppBusy(false);
+                    } else {
+                      MessageBox.information("Deleção foi cancelada!");
+                    }
+                  }.bind(this),
+                }
+              );
+            } else {
               MessageBox.alert("Aconteceu algo inesperado");
             }
           }
         },
 
         onSaveSMSCreate: async function () {
-
           this.setAppBusy(true);
 
-          let oIdentification = this.getView().byId("ipCreateIdentification").mProperties.value ;
-          let oTitle = this.getView().byId("idCreateTitle").mProperties.value ;
-          let oText = this.getView().byId("idCreateSSMText").mProperties.value ;
-          
+          let oIdentification = this.getView().byId("ipCreateIdentification").mProperties.value;
+          let oTitle = this.getView().byId("idCreateTitle").mProperties.value;
+          let oText = this.getView().byId("idCreateSSMText").mProperties.value;
+
           this.byId("ipCreateIdentification").setEditable(false);
           this.byId("idCreateTitle").setEditable(false);
           this.byId("idCreateSSMText").setEditable(false);
           this.byId("btnSave").setEnabled(false);
-          
-          // console.log("Testando dados: ", oIdentification, oTitle, oText);
-          
+
           let createPromisse = this._onPOST(oIdentification, oTitle, oText);
-          
-          let createdSMS ;
-          
+          let createdSMS;
+
           await createPromisse
-          .then(function (oData) {
-            createdSMS  = oData;
-            // console.log( "ID SMS Criado : ", createdSMS.IdSMS ) ;
-            MessageBox.success(`SMS número: ${createdSMS.IdSMS} criado com Sucesso!`);
-          })
-          .catch(function (err) {
-            // console.log("Erro criação: ", err);
-            MessageBox.error('Aconteceu algo inesperado: ', err);
-          });
+            .then(function (oData) {
+              createdSMS = oData;
+              // console.log( "ID SMS Criado : ", createdSMS.IdSMS ) ;
+              MessageBox.success(
+                `SMS número: ${createdSMS.IdSMS} criado com Sucesso!`
+              );
+            })
+            .catch(function (err) {
+              // console.log("Erro criação: ", err);
+              MessageBox.error("Aconteceu algo inesperado: ", err);
+            });
 
           this.setAppBusy(false);
-
         },
-          
-        onSendSMSUpdate: async function () {
 
+        onSendSMSUpdate: async function () {
           this.setAppBusy(true);
 
-          let oID = this.getView().byId("ipUpdtSMS").mProperties.value ;
-          let oIdentification = this.getView().byId("ipUpdtIdentification").mProperties.value ;
-          let oTitle = this.getView().byId("idUpdtTitle").mProperties.value ;
-          let oText = this.getView().byId("idUpdtSSMText").mProperties.value ;
-          
-          // this.byId("ipUpdtSMS").setEditable(false);
-          // this.byId("ipUpdtIdentification").setEditable(false);
+          let oID = this.getView().byId("ipUpdtSMS").mProperties.value;
+          let oIdentification = this.getView().byId("ipUpdtIdentification").mProperties.value;
+          let oTitle = this.getView().byId("idUpdtTitle").mProperties.value;
+          let oText = this.getView().byId("idUpdtSSMText").mProperties.value;
+
           this.byId("idUpdtTitle").setEditable(false);
           this.byId("idUpdtSSMText").setEditable(false);
           this.byId("btnSaveUpdate").setEnabled(false);
-          
-          // console.log("Testando dados: ", oIdentification, oTitle, oText);
-          
-          let updatePromisse = this._onUPDATE(oID, oIdentification, oTitle, oText);
-          
-          let updateSMS ;
-          
+
+          let updatePromisse = this._onUPDATE(
+            oID,
+            oIdentification,
+            oTitle,
+            oText
+          );
+          let updateSMS;
+
           await updatePromisse
-          .then(function (oData) {
-            updateSMS  = oData;
-            // console.log( "ID SMS Criado : ", createdSMS.IdSMS ) ;
-            MessageBox.success(`SMS número: ${updateSMS.IdSMS} atualizado com Sucesso!`);
-          })
-          .catch(function (err) {
-            // console.log("Erro criação: ", err);
-            MessageBox.error('Aconteceu algo inesperado: ', err);
-          });
+            .then(function (oData) {
+              updateSMS = oData;
+              // console.log( "ID SMS Criado : ", createdSMS.IdSMS ) ;
+              MessageBox.success(
+                `SMS número: ${updateSMS.IdSMS} atualizado com Sucesso!`
+              );
+            })
+            .catch(function (err) {
+              // console.log("Erro criação: ", err);
+              MessageBox.error("Aconteceu algo inesperado: ", err);
+            });
 
           this.setAppBusy(false);
+        },
+        _onPOST: function (param1, param2, param3) {
+          let that = this;
+          let data = {
+            IdentificadorSMS: param1,
+            TituloSMS: param2,
+            TextoSMS: param3,
+          };
+          return new Promise(function (resolve, reject) {
+            that.getModel().create("/ZFI_CDS_TEXTS_TO_SEND_SMS", data, {
+              success: function (oData) {
+                resolve(oData);
+              },
+              error: function (oError) {
+                reject(oError);
+              },
+            });
+          });
+        },
+        _onDELETE: function (param1) {
+          let that = this;
+          let data = {
+            IdSMS: param1,
+            Deletado: true,
+          };
+          return new Promise(function (resolve, reject) {
+            that.getModel().create("/ZFI_CDS_TEXTS_TO_SEND_SMS", data, {
+              success: function (oData) {
+                resolve(oData);
+              },
+              error: function (oError) {
+                reject(oError);
+              },
+            });
+          });
+        },
 
+        _onUPDATE: function (param1, param2, param3, param4) {
+          let that = this;
+          let data = {
+            IdSMS: param1,
+            IdentificadorSMS: param2,
+            TituloSMS: param3,
+            TextoSMS: param4,
+          };
+          return new Promise(function (resolve, reject) {
+            that.getModel().create("/ZFI_CDS_TEXTS_TO_SEND_SMS", data, {
+              success: function (oData) {
+                resolve(oData);
+              },
+              error: function (oError) {
+                reject(oError);
+              },
+            });
+          });
         },
 
         _loadFragmentScheduleSMS: async function () {
           if (!this._oDialog) {
             this._oDialog = new Fragment.load({
               id: this.getView().getId(),
-              name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.SendSMSMessage",
+              name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.ScheduleSMSMessage",
               controller: this,
             });
 
@@ -266,48 +389,7 @@ sap.ui.define(
           this._oDialog.open();
         },
 
-        _onPOST: function(param1, param2, param3){
-
-          let that = this ;
-          let data = {
-            IdentificadorSMS: param1,
-            TituloSMS: param2,
-            TextoSMS: param3
-          }
-          return new Promise(function (resolve, reject) {
-            that.getModel().create("/ZFI_CDS_TEXTS_TO_SEND_SMS", data, {
-              success: function (oData) {
-                resolve(oData);
-              },
-              error: function (oError) {
-                reject(oError);
-              },
-            });
-          });
-        },
-        _onUPDATE: function(param1, param2, param3, param4){
-
-          let that = this ;
-          let data = {
-            IdSMS: param1,
-            IdentificadorSMS: param2,
-            TituloSMS: param3,
-            TextoSMS: param4
-          }
-          return new Promise(function (resolve, reject) {
-            that.getModel().create("/ZFI_CDS_TEXTS_TO_SEND_SMS", data, {
-              success: function (oData) {
-                resolve(oData);
-              },
-              error: function (oError) {
-                reject(oError);
-              },
-            });
-          });
-        },
-
         _loadFragmentMaintenenceSMS: async function () {
-
           if (!this._oDialogM) {
             this._oDialogM = new Fragment.load({
               id: this.getView().getId(),
@@ -327,10 +409,8 @@ sap.ui.define(
               });
           }
           this._oDialogM.open();
-
         },
         _loadFragmentMessageSMSUpdate: async function () {
-
           if (!this._oDialogSMSUpdate) {
             this._oDialogSMSUpdate = new Fragment.load({
               id: this.getView().getId(),
@@ -349,10 +429,8 @@ sap.ui.define(
               });
           }
           this._oDialogSMSUpdate.open();
-
         },
         _loadFragmentMessageSMSCreate: async function () {
-
           if (!this._oDialogSMSCreate) {
             this._oDialogSMSCreate = new Fragment.load({
               id: this.getView().getId(),
@@ -372,10 +450,115 @@ sap.ui.define(
               });
           }
           this._oDialogSMSCreate.open();
+        },
+        _loadFragmentMessageSMSReview: async function () {
+          if (!this._oDialogSMSReview) {
+            this._oDialogSMSReview = new Fragment.load({
+              id: this.getView().getId(),
+              name: "com.unimed.prestativ.zfisendbillingsms.view.fragments.ReviewDataFromScheduleSMS",
+              controller: this,
+            });
 
+            await this._oDialogSMSReview
+              .then(
+                function (oFragment) {
+                  this.getView().addDependent(oFragment);
+                  this._oDialogSMSReview = oFragment;
+                }.bind(this)
+              )
+              .catch(function (oError) {
+                console.log(oError);
+              });
+          }
+          this._oDialogSMSReview.open();
         },
 
-        
+        _onSearch: function (oEvent) {
+
+        },
+        _getCurrentDate: function () {
+          return sap.ui.core.format.DateFormat.getDateTimeInstance({
+            pattern: "dd/MM/yyyy",
+            UTC: false,
+          }).format(new Date());
+        },
+
+        onCreateScheduleSMS: function(oEvent) {
+
+          MessageBox.confirm(
+            "Deseja realmente agendar o envio de SMS de cobrança(s) ?",
+            {
+              actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+              emphasizedAction: MessageBox.Action.OK,
+
+              onClose: async function (sAction) {
+                if (sAction == MessageBox.Action.OK) { 
+                  // MessageBox.information("Agendamento de envio de SMS realizado com sucesso!");
+
+                  let oModel = this.getView().byId("smartTable").getTable().getSelectedItems();
+                  let textLine = '';
+
+                  let oIdentification = this.getView().byId("ipReviewIdentification" ).mProperties.value;
+                  let oResend = this.getView().byId("idReviewReSend").mProperties.value;
+                  let oDate = this.onDateStatement ( this.getView().byId("idReviewDateToSend").mProperties.value );
+                  let oText = this.getView().byId("idReviewSMSText").mProperties.value;
+
+                  textLine += oIdentification  + ";;;;" +
+                              oResend          + ";;;;" +
+                              oDate            + ";;;;" +
+                              oText            + "/*+*+*+*/";
+
+                  for (let line of oModel) {
+
+                    let oLine = line.getBindingContext().getObject();
+
+                    let oCompany = oLine.Company;
+                    let oCustomer = oLine.Customer;
+                    let oDocument = oLine.Document ;
+                    let oDocumentItem = oLine.DocumentItem ;
+                    let oFiscalYear = oLine.FiscalYear ;
+
+                    textLine += oCompany      + ";;;;" +
+                                oCustomer     + ";;;;" +
+                                oDocument     + ";;;;" +
+                                oDocumentItem + ";;;;" +
+                                oFiscalYear   + "::::" ;
+                  };
+
+                  // Send Schedule Messages
+                  this.getModel().callFunction("/SendScheduleSMS", {
+                      urlParameters: {
+                        SMSLines: textLine,
+                      },
+                      success: function (oData) {
+                        console.log(oData)
+                        this.setAppBusy(false);
+                      }.bind(this),
+                      error: function (oError) {
+                        console.log("When try to update custom table happened some error: ",  oError);
+                        this.getRouter().navTo("InternalError");
+                        this.setAppBusy(false);
+                      },
+                    } 
+                  );
+
+                  this.byId("idReviewSMSText").setEditable(false);
+                  this.byId("btnReviewSave").setEnabled(false);
+
+                } else {
+                  MessageBox.information("Envio cancelado");
+                }
+
+              }.bind(this),
+
+            } 
+          );
+        },
+        onDateStatement: function (oDate) {
+          let [day, month, year] = oDate.split("/");
+          let formatedDate = year + month + day;
+          return formatedDate;
+        },
 
       }
     );

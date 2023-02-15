@@ -1,0 +1,117 @@
+<core:FragmentDefinition xmlns="sap.m" 
+                         xmlns:core="sap.ui.core"
+                         xmlns:fb="sap.ui.comp.filterbar">
+    <Dialog
+        closeOnNavigation="true"
+        contentHeight="90%"
+        contentWidth="90%"
+        draggable="false"
+        escapeHandler=""
+        horizontalScrolling="true"
+        icon="sap-icon://appointment"
+        resizable="true"
+        showHeader="true"
+        state="Information"
+        stretch="false"
+        title="Agendamento de envio de SMS"
+        titleAlignment="Center"
+        type="Standard"
+        verticalScrolling="true"
+    >
+        <buttons class="sapUiMediumMarginEnd">
+            <Button id="btnSend" icon="sap-icon://paper-plane" text="{i18n>btnSend}" press="onSendSMSToSchedule" enabled="true" type="Ghost" />
+            <Button id="btnExit" icon="sap-icon://decline" text="{i18n>btnExit}" press="onExit" type="Ghost"  />
+        </buttons>
+
+        <VBox direction="Column">
+            <items>
+                <VBox alignItems="Start" class="sapUiTinyMarginTop sapUiResponsiveContentPadding" width="100%">
+                    <items>
+                        <FlexBox justifyContent="Center" alignContent="SpaceAround" width="100%">
+
+                            <!-- Conteúdo do primeiro VBox -->
+                            <VBox alignItems="Start" class="sapUiMediumMargin" height="auto" width="100%">
+                                <Label labelFor="rbg1" text="Tipo de envio" />
+                                <RadioButtonGroup id="rbg1" columns="2" valueState="Information" width="15rem">
+                                    <RadioButton id="RB1" text="Agendado" select="onRBChange" />
+                                    <RadioButton id="RB2" text="Imediato" select="onRBChange" />
+                                </RadioButtonGroup>
+                            </VBox>
+
+                            <VBox alignItems="Start" class="sapUiMediumMargin" height="auto" width="100%">
+                                <Label text="Dias para Reenvio" labelFor="GroupA" />
+                                <Input id="iptDaysResend" maxLength="2" placeholder="00" width="3rem" />
+                            </VBox>
+
+                            <VBox alignItems="Start" class="sapUiMediumMargin" height="auto" width="100%">
+                                <Label text="Data para agendamento" labelFor="GroupA" />
+                                <DatePicker id="iptDate" placeholder="Informe data desejada" width="15rem" displayFormat="short" />
+                            </VBox>
+
+                            <VBox alignItems="Start" class="sapUiMediumMargin" height="auto" width="100%">
+                                <Label text="Identificação" labelFor="GroupA" />
+                                <Input id="iptVal" maxLength="5" placeholder="Digite uma identificação" width="15rem" />
+                            </VBox>
+                        </FlexBox>
+                    </items>
+                </VBox>
+
+
+                <VBox alignItems="Center" alignContent="Center" width="100%">
+                <!-- Conteúdo Segunda VBox -->
+                    <Table
+                        id="idTableSMSSchedule"
+                        headerText="Mensagens"
+                        alternateRowColors="true"
+                        mode="SingleSelectLeft"         
+                        class="sapUiResponsiveContentPadding"
+                        growingScrollToLoad="true"
+                        noDataText="Sem dados"
+                        growing="true"
+                        headerToolbar="tableHeader"
+                        items="{/ZFI_CDS_TEXTS_TO_SEND_SMS}" >
+
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title id="tableHeader" text="Mensagens"/>
+                                <ToolbarSpacer/>
+                                    <SearchField id="searchField"
+                                                 tooltip="tooltip"
+                                                 placeholder="Pesquisar SMS"
+                                                 search="_onSearch"
+                                                 width="auto" />                   
+                            </Toolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column width="10%">
+                                <Text text="ID" />
+                            </Column>
+                            <Column width="10%">
+                                <Text text="Identificador" />
+                            </Column>
+                            <Column width="25%">
+                                <Text text="Titulo SMS" />
+                            </Column>
+                            <Column width="55%">
+                                <Text text="Texto SMS" />
+                            </Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Link text="{ path: 'IdSMS' }" textAlign="Center" class="bold" />
+                                    <Text text="{ path: 'IdentificadorSMS' }" class="bold" />
+                                    <Text text="{ path: 'TituloSMS' }" />
+                                    <Text text="{ path: 'TextoSMS' }" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+
+                    </Table>
+                </VBox>
+            </items>
+        </VBox>
+    </Dialog>
+</core:FragmentDefinition>
