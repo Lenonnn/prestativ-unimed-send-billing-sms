@@ -5,11 +5,13 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     "../model/Formatter",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (BaseController, Fragment, JSONModel, MessageBox, Formatter) {
+  function (BaseController, Fragment, JSONModel, MessageBox, Formatter, Filter, FilterOperator) {
     "use strict";
 
     return BaseController.extend(
@@ -40,11 +42,26 @@ sap.ui.define(
           let oModel = this.getView().byId("smartTable").getTable().getSelectedItems();
 
           if (oModel.length != 0) {
-            await this._loadFragmentScheduleSMS();
+
+            let hasDuplicateItems = false ;
+
+            for (let line of oModel) {
+
+              let oLine = line.getBindingContext().getObject();
+
+              if ( oLine.DateToSendNextSMS !== '' & oLine.DateToSendNextSMS !== null && oLine.DateToSendNextSMS !== undefined ){
+                hasDuplicateItems = true;
+              }
+            };
+
+            if ( hasDuplicateItems === true ){
+              MessageBox.warning("Selecione apenas partidas que não possuem envio de mensagem agendado");
+            }else {
+              await this._loadFragmentScheduleSMS();
+            }
+
           } else {
-            MessageBox.warning(
-              "Selecione pelo menos uma partida vencida para enviar SMS"
-            );
+            MessageBox.warning("Selecione pelo menos uma partida vencida para enviar SMS");
           }
         },
 
@@ -473,9 +490,6 @@ sap.ui.define(
           this._oDialogSMSReview.open();
         },
 
-        _onSearch: function (oEvent) {
-
-        },
         _getCurrentDate: function () {
           return sap.ui.core.format.DateFormat.getDateTimeInstance({
             pattern: "dd/MM/yyyy",
@@ -502,9 +516,9 @@ sap.ui.define(
                   let oResend = this.getView().byId("idReviewReSend").mProperties.value;
                   let oDate = this.onDateStatement ( this.getView().byId("idReviewDateToSend").mProperties.value );
                   let oText = this.getView().byId("idReviewSMSText").mProperties.value;
-
+                  
                   textLine += oIdentification  + ";;;;" +
-                              oResend          + ";;;;" +
+                  oResend          + ";;;;" +
                               oDate            + ";;;;" +
                               oText            + "/*+*+*+*/";
 
@@ -527,40 +541,65 @@ sap.ui.define(
 
                   // Send Schedule Messages
                   this.getModel().callFunction("/SendScheduleSMS", {
+                      
                       urlParameters: {
                         SMSLines: textLine,
                       },
+                      
                       success: function (oData) {
                         console.log(oData)
+                        MessageBox.success('Envio de SMS agendado com sucesso');
                         this.setAppBusy(false);
                       }.bind(this),
+                      
                       error: function (oError) {
                         console.log("When try to update custom table happened some error: ",  oError);
-                        this.getRouter().navTo("InternalError");
+                        MessageBox.error('Falha ao tentar envio de SMS');
                         this.setAppBusy(false);
-                      },
+                      }.bind(this),
+                      
                     } 
-                  );
+                    );
+                    
+                    this.byId("idReviewSMSText").setEditable(false);
+                    this.byId("btnReviewSave").setEnabled(false);
+                    
+                  } else {
+                    MessageBox.information("Envio cancelado");
+                  }
+                  
+                }.bind(this),
+                
+              } 
+              );
+            },
+            onDateStatement: function (oDate) {
+              let [day, month, year] = oDate.split("/");
+              let formatedDate = year + month + day;
+              return formatedDate;
+            },
+            
+            _onSearch: function(oEvent) {
 
-                  this.byId("idReviewSMSText").setEditable(false);
-                  this.byId("btnReviewSave").setEnabled(false);
+              let sValue  = oEvent.getParameter("query");
+              let oTable = this.byId("idTableSMSSchedule");
 
-                } else {
-                  MessageBox.information("Envio cancelado");
-                }
+              let oFilter = new Filter({
+                filters: [
+                  new Filter("IdSMS", FilterOperator.Contains, sValue),
+                  new Filter("IdentificadorSMS", FilterOperator.Contains, sValue),
+                  new Filter("TituloSMS", FilterOperator.Contains, sValue),
+                  new Filter("TextoSMS", FilterOperator.Contains, sValue)
+                ],
+                and: false 
+              }); 
+              
+              oTable.getBinding("items").filter([oFilter]);
+            
+            },
 
-              }.bind(this),
-
-            } 
+          }
           );
-        },
-        onDateStatement: function (oDate) {
-          let [day, month, year] = oDate.split("/");
-          let formatedDate = year + month + day;
-          return formatedDate;
-        },
-
-      }
-    );
-  }
-);
+        }
+        );
+        

@@ -43,12 +43,13 @@
                             useExportToExcel="true"
                             useTablePersonalisation="true"
                             useVariantManagement="true"
+                            justifyContent="SpaceAround"
                             fitContainer="true"
                             header="Partidas em aberto"
                             showRowCount="true"
                             class="sapUiResponsiveContentPadding bold"
                             showFullScreenButton="true"
-                            initiallyVisibleFields="DocumentType,FiscalYear,CustomerGroups,AssignmentNumber,DocumentTypeDesciption,DateToSendNextSMS"
+                            initiallyVisibleFields="DocumentType,FiscalYear,CustomerGroups,AssignmentNumber,StatusEnvioSMS"
                         >
                             <smartTable:customToolbar>
                                 <OverflowToolbar>
@@ -82,7 +83,7 @@
                             <Table alternateRowColors="true" >
                             <columns>    
 
-                                 <Column id="Customer" hAlign="Begin" width="7rem">
+                                 <Column id="Customer" hAlign="Begin" width="6rem">
 									<Label text="{i18n>Customer}" />
 									<customData>
 										<core:CustomData 
@@ -96,7 +97,7 @@
 										</customData>
 								</Column>  
                                 
-                                 <Column id="Company" hAlign="Begin" width="6rem">
+                                 <Column id="Company" hAlign="Begin" width="5rem">
 									<Label text="{i18n>Company}" />
 									<customData>
 										<core:CustomData 
@@ -124,7 +125,7 @@
 										</customData>
 								</Column>
 
-                                 <Column id="DocumentItem" hAlign="Begin" width="5rem">
+                                 <Column id="DocumentItem" hAlign="Begin" width="3rem">
 									<Label text="{i18n>DocumentItem}" />
 									<customData>
 										<core:CustomData 
@@ -179,6 +180,36 @@
                                                         "width": "7rem"}'/>
 										</customData>
 								</Column>  
+                
+                                <Column id="StatusSend" hAlign="Begin" width="7rem">
+									<Label text="{i18n>StatusSend}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "StatusEnvioSMS", 
+                                                        "columnIndex":"12", 
+                                                        "leadingProperty": "StatusEnvioSMS", 
+                                                        "sortProperty": "StatusEnvioSMS", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
+								</Column> 
+
+                                <Column id="DateToSendNextSMS" hAlign="Begin" width="7rem">
+									<Label text="{i18n>DateNextSMS}" />
+									<customData>
+										<core:CustomData 
+											key="p13nData"
+											value='\{   "columnKey": "DateToSendNextSMS", 
+                                                        "columnIndex":"13", 
+                                                        "leadingProperty": "DateToSendNextSMS", 
+                                                        "sortProperty": "DateToSendNextSMS", 
+                                                        "displayBehaviour": "descriptionOnly", 
+                                                        "width": "7rem"}'/>
+										</customData>
+								</Column> 
+
+
                             </columns>
                              <items>
                                 <ColumnListItem  vAlign="Inherit">
@@ -230,7 +261,20 @@
 													UTC: 'true'
 												}
                                             }"
-										/>   
+                                        />
+                                        <core:Icon id="IconStatusSend" 
+                                                   src="{ path: 'StatusEnvioSMS', 
+                                                          formatter: '.formatter.formatStatusIconSend'}" 
+                                                    class="class1"
+                                                    color="#20248E"
+										/>
+                                        <Text 
+											text="{
+												path: 'DateToSendNextSMS',
+												formatter: '.formatter.formatDate'
+                                            }"
+                                        />
+
                                     </cells>
                                 </ColumnListItem>
                             </items>
