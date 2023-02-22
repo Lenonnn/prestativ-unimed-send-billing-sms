@@ -50,6 +50,8 @@
                             class="sapUiResponsiveContentPadding bold"
                             showFullScreenButton="true"
                             initiallyVisibleFields="DocumentType,FiscalYear,CustomerGroups,AssignmentNumber,StatusEnvioSMS"
+                            demandPopin="true" 
+                            showDetailsButton="true"
                         >
                             <smartTable:customToolbar>
                                 <OverflowToolbar>
@@ -80,7 +82,7 @@
                                 </OverflowToolbar>
                             </smartTable:customToolbar>
 
-                            <Table alternateRowColors="true" >
+                            <Table alternateRowColors="true" mode="MultiSelect" growing="true" >
                             <columns>    
 
                                  <Column id="Customer" hAlign="Begin" width="6rem">
@@ -187,7 +189,7 @@
 										<core:CustomData 
 											key="p13nData"
 											value='\{   "columnKey": "StatusEnvioSMS", 
-                                                        "columnIndex":"12", 
+                                                        "columnIndex":"10", 
                                                         "leadingProperty": "StatusEnvioSMS", 
                                                         "sortProperty": "StatusEnvioSMS", 
                                                         "displayBehaviour": "descriptionOnly", 
@@ -201,7 +203,7 @@
 										<core:CustomData 
 											key="p13nData"
 											value='\{   "columnKey": "DateToSendNextSMS", 
-                                                        "columnIndex":"13", 
+                                                        "columnIndex":"11", 
                                                         "leadingProperty": "DateToSendNextSMS", 
                                                         "sortProperty": "DateToSendNextSMS", 
                                                         "displayBehaviour": "descriptionOnly", 

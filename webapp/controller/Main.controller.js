@@ -24,16 +24,22 @@ sap.ui.define(
           this.oFileModel = this.getOwnerComponent().getModel();
         },
 
-        onAfterRendering: function (oEvent) {
-          // RsponsiveTable in MultiSelect
-          this.getView().byId("smartTable").getTable().setMode("MultiSelect");
-          this.getView().byId("smartTable").getTable().setGrowing(true);
-          this.getView().byId("smartTable").getTable().setGrowingThreshold(10);
-          this.byId("btnSendNewMessage").setEnabled(true);
-        },
+        // onAfterRendering: function (oEvent) {
+        //   // RsponsiveTable in MultiSelect
+        //   this.getView().byId("smartTable").getTable().setMode("MultiSelect");
+        //   this.getView().byId("smartTable").getTable().setGrowing(true);
+        //   this.getView().byId("smartTable").getTable().setGrowingThreshold(10);
+        //   this.byId("btnSendNewMessage").setEnabled(true);
+        // },
 
         onBegin: function () {
           // console.log("Begin was pressed");
+        },
+        onAfterRendering: function (oEvent) {
+          // RsponsiveTable in MultiSelect
+          this.getView().byId("SmartTable").getTable().setMode("MultiSelect");
+          this.getView().byId("SmartTable").getTable().setGrowing(true);
+          this.getView().byId("SmartTable").getTable().setGrowingThreshold(10);
         },
 
         onSendNewMessage: async function () {
