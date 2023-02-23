@@ -24,8 +24,15 @@ sap.ui.define([
                 // enable routing
                 this.getRouter().initialize();
 
+                // Set properties to show aplication in full screen mode
+                // let oRootView = this.getRootControl();
+                // console.log("O Root View: ", oRootView)
+                // oRootView.setProperty("fullWidth", true);
+                // oRootView.setProperty("fullHeight", true);
+
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+                
             }
         });
     }

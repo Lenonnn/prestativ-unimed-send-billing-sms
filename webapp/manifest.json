@@ -35,7 +35,13 @@
       "desktop": true,
       "tablet": true,
       "phone": true
-    }
+    },
+    "supportedThemes": [
+        "sap_belize",
+        "sap_belize_plus"
+    ],
+    "fullWidth": true,
+    "fullHeight": true
   },
   "sap.ui5": {
     "flexEnabled": true,
